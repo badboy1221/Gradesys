@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Post Announcements</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+        }
+        .container {
+            width: 70%;
+            margin: 50px auto;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #1e7e34;
+        }
+        .announcement-list {
+            margin-top: 20px;
+            background: white;
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .announcement-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            padding: 10px;
+        }
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+        .delete-btn:hover {
+            background: #b52a37;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Post Announcements</h2>
+        <form id="announcementForm">
+            <textarea id="announcementText" placeholder="Write your announcement here..." required></textarea>
+            <button type="button" onclick="postAnnouncement()">Post Announcement</button>
+        </form>
+        
+        <div class="announcement-list" id="announcementFeed">
+            <h3>Recent Announcements</h3>
+        </div>
+        <a href="admin_dashboard.html" style="color: #28a745;">Back to Dashboard</a>
+    </div>
+
+    <script>
+        function postAnnouncement() {
+            let text = document.getElementById("announcementText").value.trim();
+            if (!text) {
+                alert("Please enter an announcement.");
+                return;
+            }
+
+            let announcements = JSON.parse(localStorage.getItem("announcements")) || [];
+            let announcement = { text: text };
+            announcements.push(announcement);
+            localStorage.setItem("announcements", JSON.stringify(announcements));
+
+            displayAnnouncements();
+            document.getElementById("announcementText").value = "";
+        }
+
+        function displayAnnouncements() {
+            let announcementFeed = document.getElementById("announcementFeed");
+            announcementFeed.innerHTML = "<h3>Recent Announcements</h3>";
+
+            let announcements = JSON.parse(localStorage.getItem("announcements")) || [];
+            announcements.forEach((announcement, index) => {
+                let announcementItem = document.createElement("div");
+                announcementItem.classList.add("announcement-item");
+
+                let announcementText = document.createElement("span");
+                announcementText.innerText = announcement.text;
+
+                let deleteBtn = document.createElement("button");
+                deleteBtn.innerText = "Delete";
+                deleteBtn.classList.add("delete-btn");
+                deleteBtn.onclick = function () {
+                    announcements.splice(index, 1);
+                    localStorage.setItem("announcements", JSON.stringify(announcements));
+                    displayAnnouncements();
+                };
+
+                announcementItem.appendChild(announcementText);
+                announcementItem.appendChild(deleteBtn);
+                announcementFeed.appendChild(announcementItem);
+            });
+        }
+
+        window.onload = displayAnnouncements;
+    </script>
+</body>
+</html>

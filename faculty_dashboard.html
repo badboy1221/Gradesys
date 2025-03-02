@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Faculty Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            color: white;
+            text-align: center;
+        }
+        .container {
+            margin: 50px auto;
+            padding: 30px;
+            width: 80%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+        }
+        h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .menu a {
+            display: block;
+            padding: 15px;
+            background: #ff6347;
+            color: white;
+            text-decoration: none;
+            width: 200px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .menu a:hover {
+            background: #e04a2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Faculty Dashboard</h2>
+        <div class="menu">
+            <a href="#">Manage Courses</a>
+            <a href="#">Upload Grades</a>
+            <a href="#">View Student Reports</a>
+            <a href="#">Post Announcements</a>
+            <a href="login.html" style="background: #dc3545;">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

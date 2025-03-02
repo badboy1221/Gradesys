@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #11998e, #38ef7d);
+            color: white;
+            text-align: center;
+        }
+        .container {
+            margin: 50px auto;
+            padding: 30px;
+            width: 80%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+        }
+        h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .menu a {
+            display: block;
+            padding: 15px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            width: 200px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .menu a:hover {
+            background: #1e7e34;
+        }
+        .announcement-list {
+            margin-top: 30px;
+            padding: 15px;
+            background: white;
+            color: black;
+            border-radius: 5px;
+        }
+        .announcement-item {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Dashboard</h2>
+        <div class="menu">
+            <a href="#">View Grades</a>
+            <a href="#">Enroll in Courses</a>
+            <a href="#">Profile Settings</a>
+            <a href="login.html" style="background: #dc3545;">Logout</a>
+        </div>
+
+        <div class="announcement-list" id="studentAnnouncementFeed">
+            <h3>Recent Announcements</h3>
+        </div>
+    </div>
+
+    <script>
+        function loadStudentAnnouncements() {
+            let announcementFeed = document.getElementById("studentAnnouncementFeed");
+            announcementFeed.innerHTML = "<h3>Recent Announcements</h3>";
+
+            let announcements = JSON.parse(localStorage.getItem("announcements")) || [];
+            announcements.forEach(announcement => {
+                let announcementItem = document.createElement("div");
+                announcementItem.classList.add("announcement-item");
+                announcementItem.innerText = announcement.text;
+                announcementFeed.appendChild(announcementItem);
+            });
+        }
+
+        window.onload = loadStudentAnnouncements;
+    </script>
+</body>
+</html>
